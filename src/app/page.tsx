@@ -1,8 +1,6 @@
-"use client"
-import {signIn, signOut, useSession} from "next-auth/react";
-import {inspect} from "util";
 import styles from "./page.module.css";
 import Featured from "@/app/components/featured/Featured";
+import Categories from "@/app/components/categories/Categories";
 
 export default function Home() {
     // const { data: session } = useSession();
@@ -21,6 +19,7 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <Featured />
+            <Categories />
         </div>
     );
 }

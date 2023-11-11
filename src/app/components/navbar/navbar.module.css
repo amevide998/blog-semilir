@@ -10,6 +10,18 @@
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 40px;
+}
+
+.logo p {
+    font-size: 36px;
 }
 
 .links {
@@ -22,7 +34,7 @@
 @media screen and (max-width: 1280px) {
 
     .logo {
-        font-size: 2rem;
+        font-size: 4rem;
     }
 
     .links {
