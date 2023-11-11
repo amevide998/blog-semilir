@@ -2,10 +2,10 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import {NextAuthProvider} from "@/provider/auth-provider";
-import Navbar from "@/app/components/navbar/Navbar";
-import Footer from "@/app/components/footer/Footer";
-import {ThemeContextProvider} from "@/app/components/context/ThemeContext";
-import {ThemeProvider} from "@/app/components/provider/themeProvider";
+import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer/Footer";
+import {ThemeContextProvider} from "@/components/context/ThemeContext";
+import {ThemeProvider} from "@/components/provider/themeProvider";
 
 const inter = Inter({ subsets: ['latin'] })
 

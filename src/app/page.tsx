@@ -1,6 +1,6 @@
-import styles from "./page.module.css";
-import Featured from "@/app/components/featured/Featured";
-import Categories from "@/app/components/categories/Categories";
+import styles from "./homePage.module.css";
+import Featured from "@/components/featured/Featured";
+import Categories from "@/components/categories/Categories";
 
 export default function Home() {
     // const { data: session } = useSession();

@@ -1,4 +1,4 @@
-import styles from "@/app/components/featured/featured.module.css";
+import styles from "@/components/featured/featured.module.css";
 import React from "react";
 
 export default function FeaturedImage(){

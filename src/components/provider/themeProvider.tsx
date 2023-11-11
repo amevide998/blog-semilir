@@ -1,6 +1,6 @@
 "use client"
 import {PropsWithChildren, useContext, useEffect, useState} from "react";
-import {ThemeContext} from "@/app/components/context/ThemeContext";
+import {ThemeContext} from "@/components/context/ThemeContext";
 
 
 export const ThemeProvider = (props: PropsWithChildren) => {

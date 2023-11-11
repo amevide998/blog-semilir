@@ -1,7 +1,7 @@
 "use client"
 import styles from "./social-media-logo.module.css";
 import {useContext} from "react";
-import {ThemeContext} from "@/app/components/context/ThemeContext";
+import {ThemeContext} from "@/components/context/ThemeContext";
 
 export default function SocialMediaLogo(){
     const themeState = useContext(ThemeContext);

@@ -31,26 +31,26 @@ export default function Footer() {
             <div className={styles.links}>
                 <div className={styles.list}>
                     <span className={styles.listTitle}>Links</span>
-                    <Link href={"/"}>HomePage</Link>
-                    <Link href={"/"}>Blog</Link>
-                    <Link href={"/"}>About</Link>
-                    <Link href={"/"}>Contact</Link>
+                    <Link href={""}>HomePage</Link>
+                    <Link href={""}>Blog</Link>
+                    <Link href={""}>About</Link>
+                    <Link href={""}>Contact</Link>
                 </div>
                 <div className={styles.list}>
                     <span className={styles.listTitle}>Tags</span>
-                    <Link href={"/"}>Style</Link>
-                    <Link href={"/"}>Coding</Link>
-                    <Link href={"/"}>Travel</Link>
-                    <Link href={"/"}>Fashion</Link>
-                    <Link href={"/"}>Food</Link>
-                    <Link href={"/"}>Culture</Link>
+                    <Link href={""}>Style</Link>
+                    <Link href={""}>Coding</Link>
+                    <Link href={""}>Travel</Link>
+                    <Link href={""}>Fashion</Link>
+                    <Link href={""}>Food</Link>
+                    <Link href={""}>Culture</Link>
                 </div>
                 <div className={styles.list}>
                     <span className={styles.listTitle}>Social</span>
-                    <Link href={"/"}>Facebook</Link>
-                    <Link href={"/"}>Instagram</Link>
-                    <Link href={"/"}>Tiktok</Link>
-                    <Link href={"/"}>Youtube</Link>
+                    <Link href={""}>Facebook</Link>
+                    <Link href={""}>Instagram</Link>
+                    <Link href={""}>Tiktok</Link>
+                    <Link href={""}>Youtube</Link>
                 </div>
             </div>
         </div>

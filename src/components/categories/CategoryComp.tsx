@@ -1,14 +1,28 @@
-// Import statements
-"use client"
 import Link from "next/link";
-import styles from "@/app/components/categories/categories.module.css";
+import styles from "@/components/categories/categories.module.css";
 import React, { useContext } from "react";
-import { ThemeContext } from "@/app/components/context/ThemeContext";
+import { ThemeContext } from "@/components/context/ThemeContext";
 import { Category } from "@/models/Category";
+import { getCategories} from "@/app/api/categories/route";
 
 // Functional component for rendering categories
-const CategoryComp: React.FC<{ data: Category[] }> = ({ data }) => {
-    const themeState = useContext(ThemeContext);
+
+// const getData = async () =>{
+//     const res = await fetch(
+//         `http://localhost:3000/api/categories`
+//         , {
+//             cache: "no-store"
+//         })
+//
+//     if(!res.ok){
+//         throw new Error("Failed")
+//     }
+//
+//     return res.json();
+// }
+
+const CategoryComp =  async () => {
+    const  data = await getCategories();
 
     return (
         <>

@@ -1,27 +1,14 @@
-import {NextResponse} from "next/server";
 import Category from "../../../models/schemas/categorySchema";
-import {connectToDatabase} from "../../../databases/mongodb";
-import mongoose from "mongoose";
+import {connectToDatabase} from "@/databases/mongodb";
 
 
-export const GET = async () => {
+export const getCategories = async () => {
 
     try{
         await connectToDatabase();
-        const categories = await Category.find();
-        return new NextResponse(
-            JSON.stringify(categories),
-                { status: 200, headers: { 'Content-Type': 'application/json' } }
-        )
-
+        return await Category.find()
 
     }catch (err){
         console.log("api/categories/get : ", err)
-        return new NextResponse(
-            JSON.stringify({
-                message : "Internal Server Error"
-            }),
-            { status: 500, headers: { 'Content-Type': 'application/json' }}
-        )
     }
 }

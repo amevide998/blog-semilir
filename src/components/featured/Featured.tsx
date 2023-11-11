@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./featured.module.css";
 import Image from "next/image";
-import FeaturedImage from "@/app/components/featured/FeaturedImage";
+import FeaturedImage from "@/components/featured/FeaturedImage";
 
 
 export default function Featured() {
