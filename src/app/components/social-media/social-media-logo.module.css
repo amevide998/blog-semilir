@@ -1,0 +1,80 @@
+/* social logo*/
+
+.social {
+    --facebook-fill-light: #3b5998;
+    --facebook-background-light: #fff;
+    --facebook-fill-dark: #fff;
+    --facebook-background-dark: #3b5998;
+
+    --instagram-fill-light: #e1306c;
+    --instagram-background-light: #fff;
+    --instagram-fill-dark: #fff;
+    --instagram-background-dark: #e1306c;
+
+    --tiktok-fill-light: #000;
+    --tiktok-background-light: #fff;
+    --tiktok-fill-dark: #fff;
+    --tiktok-background-dark: #000;
+
+    --youtube-fill-light: #ff0000;
+    --youtube-background-light: #fff;
+    --youtube-fill-dark: #fff;
+    --youtube-background-dark: #ff0000;
+}
+
+.social {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+}
+
+.social svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.social svg:hover {
+    opacity: 0.5;
+}
+
+.social div {
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social .facebookLight {
+    fill: var(--facebook-fill-light);
+    background-color: var(--facebook-background-light);
+}
+.social .facebookDark {
+    fill: var(--facebook-fill-dark);
+    background-color: var(--facebook-background-dark);
+}
+.social .instagramLight {
+    fill: var(--instagram-fill-light);
+    background-color: var(--instagram-background-light);
+}
+.social .instagramDark {
+    fill: var(--instagram-fill-dark);
+    background-color: var(--instagram-background-dark);
+}
+.social .tiktokLight {
+    fill: var(--tiktok-fill-light);
+    background-color: var(--tiktok-background-light);
+}
+.social .tiktokDark {
+    fill: var(--tiktok-fill-dark);
+    background-color: var(--tiktok-background-dark);
+}
+.social .youtubeLight {
+    fill: var(--youtube-fill-light);
+    background-color: var(--youtube-background-light);
+}
+.social .youtubeDark {
+    fill: var(--youtube-fill-dark);
+    background-color: var(--youtube-background-dark);
+}

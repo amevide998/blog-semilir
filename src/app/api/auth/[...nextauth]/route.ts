@@ -5,7 +5,7 @@ import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import TwitterProvider from "next-auth/providers/twitter"
 import {MongoDBAdapter} from "@auth/mongodb-adapter";
-import clientPromise from "@/database/mongodb-adapter";
+import clientPromise from "@/adapter/mongodb-adapter";
 // import EmailProvider from "next-auth/providers/email"
 // import AppleProvider from "next-auth/providers/apple"
 

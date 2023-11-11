@@ -1,0 +1,18 @@
+.outerBorder {
+    @apply rounded-full p-[2px] border-[1px] border-solid flex justify-center items-center;
+}
+
+.container {
+    @apply object-fill flex justify-center items-center p-[0.5px] rounded-full;
+}
+
+.light {
+    @apply bg-black;
+}
+
+.dark {
+    @apply bg-white;
+}
+
+
+

@@ -1,27 +1,90 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+:root{
+  --bg:white;
+  --textColor:black;
+  --softBg:#f0f0f0;
+  --softTextColor:#626262;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+a{
+  color: inherit;
+  text-decoration: none   ;
+}
+
+.dark{
+  --bg: #1a1a1a;
+  --textColor: white;
+  --softBg: #333;
+  --softTextColor: white;
+}
+
+.container {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--textColor);
+}
+
+.wrapper {
+  max-width: 1326px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.ql-wrapper {
+  font-size: 20px;
+}
+
+.ql-container {
+  font-size: 28px !important;
+}
+
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  color: #b3b3b1;
+}
+
+@media screen and (max-width: 1280px) {
+  .wrapper {
+    max-width: 1024px;
   }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    max-width: 768px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 
-.box-a {
-  @apply flex min-h-screen flex-col items-center justify-between p-36;
+@media screen and (max-width: 768px) {
+  .wrapper {
+    max-width: 640px;
+  }
 }
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    max-width: 480px;
+  }
+}
+
+
+
+
+
+
