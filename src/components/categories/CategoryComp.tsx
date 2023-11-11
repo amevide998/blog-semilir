@@ -1,32 +1,15 @@
 import Link from "next/link";
 import styles from "@/components/categories/categories.module.css";
 import React, { useContext } from "react";
-import { ThemeContext } from "@/components/context/ThemeContext";
-import { Category } from "@/models/Category";
-import { getCategories} from "@/app/api/categories/route";
-
-// Functional component for rendering categories
-
-// const getData = async () =>{
-//     const res = await fetch(
-//         `http://localhost:3000/api/categories`
-//         , {
-//             cache: "no-store"
-//         })
-//
-//     if(!res.ok){
-//         throw new Error("Failed")
-//     }
-//
-//     return res.json();
-// }
+import { CategoryM } from "@/models/Category.m";
+import {getCategories} from "@/data/CategoryData";
 
 const CategoryComp =  async () => {
     const  data = await getCategories();
 
     return (
         <>
-            {data?.map((category: Category) => (
+            {data?.map((category: CategoryM) => (
                 <div key={category.slug}>
                     <Link
                         href={`blog?category=${category.slug}`}

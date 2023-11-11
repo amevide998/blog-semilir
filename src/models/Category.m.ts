@@ -1,4 +1,4 @@
-export type Category = {
+export type CategoryM = {
     slug: string;
     img: string;
     title: string;
