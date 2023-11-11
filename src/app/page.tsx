@@ -1,11 +1,25 @@
-import Image from 'next/image'
+"use client"
+import {signIn, signOut, useSession} from "next-auth/react";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>
-        Hello World
-      </h1>
-    </main>
-  )
+    const { data: session } = useSession();
+
+    if (session && session.user) {
+        console.log("session.user", session?.user);
+        return (
+            <button
+                onClick={() => signOut()}
+            >
+                {session.user.name} Sign Out
+            </button>
+        );
+    }
+
+    return (
+        <button
+            onClick={() => signIn()}
+        >
+            SignIn
+        </button>
+    );
 }
