@@ -4,12 +4,15 @@ import FacebookProvider from "next-auth/providers/facebook"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import TwitterProvider from "next-auth/providers/twitter"
+import {MongoDBAdapter} from "@auth/mongodb-adapter";
+import clientPromise from "@/database/mongodb-adapter";
 // import EmailProvider from "next-auth/providers/email"
 // import AppleProvider from "next-auth/providers/apple"
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 const handler = NextAuth({
+    adapter: MongoDBAdapter(clientPromise),
     // https://next-auth.js.org/configuration/providers
     providers: [
         // EmailProvider({
