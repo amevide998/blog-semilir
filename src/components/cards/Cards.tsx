@@ -1,17 +1,21 @@
 import styles from "./cards.module.css";
 import {Card} from "@/components/card/Card";
 import {getPosts} from "@/data/PostData";
+import Pagination from "@/components/pagination/Pagination";
 export default async function Cards({page}: {page: number}) {
 
-    const posts = await getPosts()
-
-    if(!posts){
+    const items = await getPosts(page)
+    if(!items){
         return (
             <>
                 Post Not Found
             </>
         )
     }
+    const posts = items.posts
+
+    const hasPrev = page > 1
+    const hasNext = items.count > page * 4
 
     return (
         <div className={styles.container}>
@@ -25,7 +29,7 @@ export default async function Cards({page}: {page: number}) {
                     ))
                 }
             </div>
-            {/*<Pagination page={page} hasPrev={hasPrev} hasNext={hasNext}/>*/}
+            <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext}/>
         </div>
     )
 }
