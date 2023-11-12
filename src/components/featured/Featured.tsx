@@ -8,15 +8,17 @@ export default function Featured() {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>
-                <b>{`Hey, Welcome`}</b><br/>
-                Discover Anything About Code
+                <b>{`Unlock Creativity`}</b>
+                <br/>
+                Through Code: Where Ideas Become Digital Reality!
             </h1>
             <div className={styles.post}>
                 <div className={styles.imgContainer}>
                     <FeaturedImage />
                 </div>
                 <div className={styles.textContainer}>
-                    <h1 className={styles.postTitle}>I am Spirit, formless and free.
+                    <h1 className={styles.postTitle}>
+                        I am Spirit, formless and free.
                         Whatever I think, that will I be.
                     </h1>
                     <p className={styles.postDescription}>
@@ -27,9 +29,11 @@ export default function Featured() {
                         I craft my existence, for I am Spirit, wild and free.`
                         }
                     </p>
-                    <button className={styles.readMoreButton}>
-                        Read More
-                    </button>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.readMoreButton}>
+                            Read More
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

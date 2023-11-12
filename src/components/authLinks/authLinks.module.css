@@ -1,0 +1,67 @@
+.link {
+    cursor: pointer;
+}
+
+.alreadyLogin {
+    display: flex;
+    gap: 10px;
+}
+
+.burger {
+    width: 48px;
+    height: 48px;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    display: none;
+}
+
+
+.line1, .line2, .line3 {
+    width: 24px;
+    height: 3px;
+    background-color: var(--textColor);
+}
+
+
+
+.responsiveMenu {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    background-color: var(--bg);
+    height: calc(100vh - 100px);
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    font-size: 36px;
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+
+
+}
+
+@media screen and (max-width: 640px) {
+
+    .link {
+        display: none;
+    }
+
+    .alreadyLogin {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .responsiveMenu {
+        display: flex;
+    }
+}

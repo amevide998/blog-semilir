@@ -4,6 +4,7 @@ import Link from "next/link";
 import Theme from "@/components/theme/theme";
 import SocialMediaLogo from "@/components/social-media/socialMediaLogo";
 import Image from "next/image";
+import AuthLinks from "@/components/authLinks/AuthLinks";
 // import AuthLinks from "@/components/authLinks/AuthLinks";
 // import ThemeToggle from "@/components/themeToggle/ThemeToggle";
 
@@ -22,7 +23,9 @@ export default function Navbar() {
                 <Link href={""} className={styles.link}>HOME</Link>
                 <Link href={""} className={styles.link}>CONTACT</Link>
                 <Link href={""} className={styles.link}>ABOUT</Link>
-                {/*<AuthLinks className={styles.link} />*/}
+                <div className={styles.authlink}>
+                    <AuthLinks />
+                </div>
             </div>
         </div>
     );

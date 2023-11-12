@@ -3,15 +3,26 @@ import Image from "next/image";
 import React from "react";
 import {getPostsByEditorPick} from "@/data/PostData";
 import ByEditor from "@/components/menu/ByEditor";
+import Loader from "@/components/loader/Loader";
 
 export default async function EditorPicks({styles}: any){
 
     const data: any = await getPostsByEditorPick();
+    if(!data){
+        return (
+            <div className={styles.editorPicks}>
+                <Loader />
+            </div>
+        )
+    }
+
     const posts = data[0].posts;
 
     if(!posts){
         return (
-            <h1>Nothing to see here </h1>
+            <div className={styles.editorPicks}>
+                <Loader />
+            </div>
         )
     }
 

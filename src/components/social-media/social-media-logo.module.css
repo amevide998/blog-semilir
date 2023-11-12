@@ -78,3 +78,10 @@
     fill: var(--youtube-fill-dark);
     background-color: var(--youtube-background-dark);
 }
+
+@media screen and (max-width: 768px) {
+
+    .social {
+        display: none;
+    }
+}

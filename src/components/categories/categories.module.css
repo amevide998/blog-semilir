@@ -2,6 +2,7 @@
     padding-top: 10px;
     margin-top: 40px;
     padding-bottom: 40px;
+
 }
 
 .title {
@@ -14,6 +15,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     row-gap: 30px;
+
 }
 
 
@@ -25,6 +27,7 @@
     border-radius: 5px;
     text-transform: capitalize;
     width: 100%;
+
 }
 
 .image {
@@ -33,6 +36,7 @@
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
     object-fit: cover;
+
 }
 
 .categoryTitle {
@@ -47,29 +51,110 @@
     font-weight: 500;
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
+
 }
 
 @media screen and (max-width: 1280px) {
     .category{
-        width: 20%;
+        width: 90%;
+    }
+
+
+    .categories div {
+        width: 33%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .image {
+        width: 90%;
+        height: 70%;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        object-fit: cover;
+
+    }
+
+    .categoryTitle {
+        width: 90%;
+    }
+
+    .title {
+        font-size: 32px;
     }
 
 }
 
 @media screen and (max-width: 1024px) {
-    .category{
-        width: 25%;
+
+
+    .image {
+        height: 60%;
+    }
+
+    .title {
+        font-size: 28px;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .category{
-        width: 45%;
+
+    .categories div {
+        width: 48%;
+        height: 120px;
+        position: relative;
     }
+
+    .image {
+        height: 90%;
+        border-radius: 10px;
+        width: 220px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .categoryTitle {
+        width: 220px;
+        /*background-color: transparent !important;*/
+        position: absolute;
+        font-size: 20px;
+        font-weight: 800;
+        border-radius: 10px;
+        height: 90%;
+        color: white;
+        background-color: rgba(105,105,105,0.5) !important;
+        z-index: 99;
+    }
+
+    .container {
+        border-radius: 10px;
+        background-image: linear-gradient(to right, #f2f2f2, #d9d9ff);
+        background-size: 200% 100%;
+        animation: gradientFlow 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientFlow {
+        0% {
+            background-position: 0 0; /* Mulai dari kiri atas */
+        }
+        100% {
+            background-position: 100% 100%; /* Pindah ke kanan bawah */
+        }
+    }
+
+
 }
 
 @media screen and (max-width: 640px) {
-    .category{
-        width: 100%;
+    .categories div{
+        width: 90%;
+        height: 72px;
+    }
+
+    .categories {
+        gap: 10px;
     }
 }
