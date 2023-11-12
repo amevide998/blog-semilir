@@ -6,7 +6,10 @@ import Menu from "@/components/menu/Menu";
 
 import seeds from "@/seed/seeds";
 
-export default function Home() {
+// @ts-ignore
+export default function Home({searchParams}) {
+
+    const page = parseInt(searchParams?.page) || 1
     if(process.env.SEEDS === 'true') {
         seeds();
     }
@@ -22,8 +25,6 @@ export default function Home() {
     //         </button>
     //     );
     // }
-
-    const page = 1
 
     return (
         <div className={styles.container}>
