@@ -3,6 +3,7 @@ import Category from "@/models/schemas/categorySchema";
 import User from "@/models/schemas/userSchema"
 import Post from "@/models/schemas/postSchema";
 import Comment from "@/models/schemas/commentSchema";
+import EditorPick from "@/models/schemas/editorPickSchema";
 
 
 const seeds = async () => {
@@ -170,6 +171,15 @@ const seeds = async () => {
         // cek seeds
         const post = await Post.find();
             console.log(post);
+
+
+            // add editor picks
+
+        await EditorPick.deleteMany();
+        await EditorPick.create({
+            createdAt: new Date(),
+            posts: [post1._id, post2._id, post3._id, post4._id]
+        })
 
 
 

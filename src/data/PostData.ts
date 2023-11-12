@@ -1,5 +1,6 @@
 import Post from "@/models/schemas/postSchema";
 import {connectToDatabase} from "@/databases/mongodb";
+import EditorPick from "@/models/schemas/editorPickSchema";
 
 
 export const getPosts = async (page: number) => {
@@ -26,4 +27,13 @@ export const getPostsByMostViews = async () => {
     }
 }
 
+
+export const getPostsByEditorPick = async () => {
+    try{
+        await connectToDatabase();
+        return await EditorPick.find().limit(1).sort({createdAt: -1}).populate('posts')
+    }catch (err){
+        console.log("get categories error : ", err)
+    }
+}
 

@@ -29,7 +29,7 @@ export default async function Cards({page}: {page: number}) {
                     ))
                 }
             </div>
-            <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext}/>
+            <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} count={items.count}/>
         </div>
     )
 }
