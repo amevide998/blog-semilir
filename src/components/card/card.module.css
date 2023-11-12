@@ -1,0 +1,81 @@
+.container {
+    margin-bottom: 50px;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.imgContainer {
+    flex: 1;
+    position: relative;
+    height: 350px;
+}
+
+.textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.date {
+    color: rgb(128, 128, 128);
+}
+
+.category {
+    color: crimson;
+    font-weight: bold;
+}
+
+.cardTitle {
+    font-size: 40px;
+}
+
+.cardDescription {
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--softTextColor);
+}
+
+.readMoreLink {
+    border-bottom: 1px solid var(--softTextColor);
+    width: max-content;
+    padding: 2px 0px ;
+}
+
+@media screen and (max-width: 1280px) {
+    .imgContainer {
+        height: 250px;
+    }
+
+    .cardTitle {
+        font-size: 28px;
+    }
+
+    .cardDescription {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .imgContainer {
+        height: 200px;
+    }
+
+    .container {
+        gap: 20px;
+    }
+
+    .cardTitle {
+        font-size: 24px;
+    }
+
+    .cardDescription {
+        font-size: 12px;
+    }
+
+    .textContainer {
+        gap: 10px;
+    }
+}
