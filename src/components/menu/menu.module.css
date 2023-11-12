@@ -1,6 +1,12 @@
 .container {
     flex: 2;
 }
+.mostPopular {
+    border-radius: 10px;
+    border: 1px solid var(--softBg);
+    padding: 20px;
+    margin-bottom: 40px;
+}
 
 .image {
     border-radius: 50%;
@@ -13,10 +19,12 @@
     color: rgb(128, 128, 128);
     font-size: 16px;
     font-weight: 400;
+    text-align: center;
 }
 
 .title {
     font-size: 28px;
+    text-align: center;
 }
 
 .items{
@@ -31,7 +39,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-
 }
 
 .imgContainer{
@@ -54,36 +61,21 @@
     border-radius: 10px;
     font-size: 12px;
     color: white;
+    width: max-content;
+    display: flex;
+    justify-content: end;
 }
 
-.travel{
-    background-color: lightskyblue;
-    width: max-content;
+.views {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.culture{
-    background-color: lightpink;
-    width: max-content;
-}
-
-.food{
-    background-color: lightcoral;
-    width: max-content;
-}
-
-.style {
-    background-color: lightgray;
-    width: max-content;
-}
-
-.fashion {
-    background-color: lightblue;
-    width: max-content;
-}
-
-.coding {
-    background-color: lightsalmon;
-    width: max-content;
+.viewsCount {
+    font-size: 16px;
+    color: var(--softTextColor);
 }
 
 

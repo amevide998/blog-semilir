@@ -15,3 +15,15 @@ export const getPosts = async (page: number) => {
         console.log("get categories error : ", err)
     }
 }
+
+
+export const getPostsByMostViews = async () => {
+    try{
+        await connectToDatabase();
+        return await Post.find().limit(5).sort({views: -1}).populate('category').populate('author')
+    }catch (err){
+        console.log("get categories error : ", err)
+    }
+}
+
+

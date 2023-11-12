@@ -11,6 +11,7 @@ export const Card = async ({item}: {item: any}) => {
             {
                 item.image && (
                     <div className={styles.imgContainer}>
+                        {/*eslint-disable-next-line @next/next/no-img-element*/}
                         <img src={item.image} alt={''} className={styles.postImage}/>
                     </div>
                 )
