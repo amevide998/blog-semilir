@@ -4,7 +4,6 @@ import Link from "next/link";
 import {getCategory} from "@/data/CategoryData";
 
 export const Card = async ({item}: {item: any}) => {
-
     const category = await getCategory(item.category)
 
     return (
@@ -12,7 +11,7 @@ export const Card = async ({item}: {item: any}) => {
             {
                 item.image && (
                     <div className={styles.imgContainer}>
-                        <Image src={item.image} alt={''} fill className={styles.postImage}/>
+                        <img src={item.image} alt={''} className={styles.postImage}/>
                     </div>
                 )
             }
