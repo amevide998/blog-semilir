@@ -6,7 +6,6 @@ import {getCategories} from "@/data/CategoryData";
 
 const CategoryComp =  async () => {
     const  data = await getCategories();
-
     return (
         <>
             {data?.map((category: CategoryM) => (
