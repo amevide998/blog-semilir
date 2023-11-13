@@ -92,6 +92,82 @@ a{
 
 
 
+/*TEXT  EDITOR*/
+.ProseMirror > .selection > .selection-border {
+  border: none;
+}
+
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* BLOCK CODE */
+code {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #333;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  display: block;
+  overflow-x: auto;
+  margin-right: 30%;
+  margin-left: 5%;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 32px 8px 10px;
+  line-height: 20px;
+}
+
+code {
+  position: relative;
+}
+
+code::before {
+  content: "Code Block "; /* Ganti dengan konten yang diinginkan */
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f8f8f8;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ddd;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Menambahkan gaya untuk kode inline */
+code.inline {
+  padding: 4px;
+  border: 1px solid #ddd;
+}
+/*!* Code in text *!*/
+/*p > code,*/
+/*li > code,*/
+/*dd > code,*/
+/*td > code {*/
+/*  background: #ffeff0;*/
+/*  word-wrap: break-word;*/
+/*  box-decoration-break: clone;*/
+/*  padding: .1rem .3rem .2rem;*/
+/*  border-radius: .2rem;*/
+/*}*/
 
 
+.tiptap {
+  /*border-left: 1px dashed var(--softTextColor);*/
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-bottom: 100px;
+  margin-bottom: 200px;
+  margin-top: 20px;
+  /*border-top: 0.01rem dashed var(--softTextColor);*/
+  box-shadow: 0 0 5px 0 var(--softTextColor);
+}
 
+.tiptap .tippy-content {
+  z-index: 1 !important;
+}
+
+.tiptap .ProseMirror {
+  z-index: 1 !important;
+}

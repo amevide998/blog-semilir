@@ -1,0 +1,164 @@
+.editor {
+    min-height: 75vh;
+    margin-top: 80px;
+}
+
+.tiptap > * + * {
+    margin-top: 0.75em;
+}
+
+.tiptap ul,
+.tiptap ol {
+    padding: 0 1rem;
+}
+
+
+
+/* Styling.module.css */
+.bubbleMenu {
+    display: flex;
+    background-color: #0D0D0D;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+}
+
+.bubbleMenu button {
+    border: none;
+    background: none;
+    color: #FFF;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0 0.2rem;
+    opacity: 0.6;
+}
+
+.bubbleMenu button:hover,
+.bubbleMenu button.isActive {
+    opacity: 1;
+}
+
+.floatingMenu {
+    display: flex;
+    /*background-color: #0D0D0D10;*/
+    border-radius: 0.5rem;
+    gap: 5px;
+    flex-direction: column;
+    position: absolute;
+}
+
+.floatingMenu button {
+    /*border: none;*/
+    /*background: none;*/
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0 0.2rem;
+    opacity: 0.6;
+    background-color: #0D0D0D10;
+    width: max-content;
+    height: max-content;
+    color: var(--softTextColor);
+    border-radius: 20px;
+    border: 0.1rem solid var(--softTextColor);
+}
+
+.floatingMenu button:hover,
+.floatingMenu button.isActive {
+    opacity: 1;
+}
+
+.headingPopUp, .listPopUp , .codePopup{
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    font-weight: 500;
+}
+
+.listPopUp button {
+    width: 60px;
+    text-align: left;
+}
+
+/*.listPopUp{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 2px;*/
+/*    font-weight: 500;*/
+/*}*/
+
+
+/*MODALS IMAGE */
+
+/* writePage.module.css */
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-0%, -20%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 300px; /* Sesuaikan dengan lebar yang diinginkan */
+
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.modal img figcaption {
+    border: 1px solid black;
+}
+
+.modal button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.modal button:last-child {
+    background-color: #ccc;
+}
+
+/* Tambahan: Animasi muncul saat modal dibuka */
+.modal-enter {
+    opacity: 0;
+}
+.modal-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+}
+
+
+/* Tambahan: Animasi hilang saat modal ditutup */
+.modal-exit {
+    opacity: 1;
+}
+.modal-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.imgUrlOptions , .imgUploadOptions {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.imgOptions{
+    margin-bottom: 20px;
+}
