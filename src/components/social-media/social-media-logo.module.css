@@ -81,7 +81,7 @@
 
 @media screen and (max-width: 768px) {
 
-    .social {
-        display: none;
-    }
+    /*.social {*/
+    /*    display: none;*/
+    /*}*/
 }

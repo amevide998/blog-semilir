@@ -8,6 +8,7 @@
 .title {
     margin: 20px 0px;
     text-align: center;
+    color: var(--softTextColor);
 }
 
 .categories {
@@ -131,7 +132,7 @@
 
     .container {
         border-radius: 10px;
-        background-image: linear-gradient(to right, #f2f2f2, #d9d9ff);
+        background-image: var(--categoriesbg);
         background-size: 200% 100%;
         animation: gradientFlow 3s ease-in-out infinite;
     }

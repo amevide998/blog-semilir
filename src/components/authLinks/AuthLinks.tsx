@@ -44,7 +44,7 @@ export default function AuthLinks(){
                                 (
                                     <>
                                         <Link href={"/write"}>WRITE</Link>
-                                            <span className={styles.link}
+                                            <span className={styles.logoutLinks}
                                                   onClick={async ()=> await signOut()
                                             }>
                                         LOGOUT

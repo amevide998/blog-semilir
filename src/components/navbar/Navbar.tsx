@@ -12,7 +12,9 @@ import AuthLinks from "@/components/authLinks/AuthLinks";
 export default function Navbar() {
     return (
         <div className={styles.container}>
-            <SocialMediaLogo />
+            <div className={styles.socialLogos}>
+                <SocialMediaLogo />
+            </div>
             <Link href={""} className={styles.logo}>
                 {/*eslint-disable-next-line @next/next/no-img-element*/}
                 <img src={"/wind-turbines-svgrepo-com.svg"} alt={"logo"}/>

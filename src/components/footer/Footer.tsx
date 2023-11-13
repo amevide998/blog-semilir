@@ -2,9 +2,14 @@ import React from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import SocialMediaLogo from "@/components/social-media/socialMediaLogo";
+import {getCategories} from "@/data/CategoryData";
 
 
-export default function Footer() {
+export default async function Footer() {
+
+    const category = await getCategories();
+
     return (
         <div className={styles.container}>
             <div className={styles.info}>
@@ -12,38 +17,30 @@ export default function Footer() {
                     <Image src={"/logo.png"} alt={""} width={50} height={50}/>
                 </div>
                 <h1 className={styles.logoText}>
-                    <b>janjela</b>
+                    <b>Semilir Blog</b>
                 </h1>
                 <p className={styles.description}>
-                    {`As I think, so I become, a creator of my own,
-                        In this tapestry of life, I've beautifully sewn.
-                        With every whisper of desire, every thought I see,
-                        I craft my existence, for I am Spirit, wild and free.`}
+                    {`Sailing the Breeze of Innovation and Knowledge`}
                 </p>
                 <div className={styles.icons}>
-                    <Image src={'/facebook.png'} alt={'facebook logo '} width={18} height={18}/>
-                    <Image src={'/instagram.png'} alt={'instagram logo '} width={18} height={18}/>
-                    <Image src={'/tiktok.png'} alt={'tiktok logo '} width={18} height={18}/>
-                    <Image src={'/youtube.png'} alt={'youtube logo '} width={18} height={18}/>
-
+                    <SocialMediaLogo />
                 </div>
             </div>
             <div className={styles.links}>
                 <div className={styles.list}>
                     <span className={styles.listTitle}>Links</span>
-                    <Link href={""}>HomePage</Link>
-                    <Link href={""}>Blog</Link>
-                    <Link href={""}>About</Link>
-                    <Link href={""}>Contact</Link>
+                    <Link href={"/"}>home</Link>
+                    <Link href={"/blog"}>blog</Link>
+                    <Link href={"/about"}>about</Link>
+                    <Link href={"/contact"}>contact</Link>
                 </div>
                 <div className={styles.list}>
                     <span className={styles.listTitle}>Tags</span>
-                    <Link href={""}>Style</Link>
-                    <Link href={""}>Coding</Link>
-                    <Link href={""}>Travel</Link>
-                    <Link href={""}>Fashion</Link>
-                    <Link href={""}>Food</Link>
-                    <Link href={""}>Culture</Link>
+                    {
+                        category && category.map((item: any) => (
+                            <Link href={`/tag/${item.slug}`} key={item._id}>{item.title}</Link>
+                        ))
+                    }
                 </div>
                 <div className={styles.list}>
                     <span className={styles.listTitle}>Social</span>
