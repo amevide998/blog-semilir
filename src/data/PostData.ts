@@ -1,6 +1,7 @@
 import Post from "@/models/schemas/postSchema";
 import {connectToDatabase} from "@/databases/mongodb";
 import EditorPick from "@/models/schemas/editorPickSchema";
+import Comment from "@/models/schemas/commentSchema";
 
 
 export const getPosts = async (page: number) => {
@@ -12,6 +13,32 @@ export const getPosts = async (page: number) => {
             posts,
             count
         }
+    }catch (err){
+        console.log("get categories error : ", err)
+    }
+}
+
+export const getPost = async (slug: string) => {
+    try{
+        await connectToDatabase();
+        const posts = await Post.findOne({slug})
+            .populate({
+                path: 'author',
+                select: ['name', 'image']
+            })
+            .populate({
+                path: 'category',
+                select: ['slug', 'title', 'color1']
+            })
+            .exec()
+
+        if(posts.comments.length !== 0){
+            posts.comments = await Comment.find({
+                _id: {$in: posts?.comments}
+            })
+        }
+
+        return posts;
     }catch (err){
         console.log("get categories error : ", err)
     }
