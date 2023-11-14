@@ -1,0 +1,14 @@
+.editor {
+    min-height: 75vh;
+    margin-top: 80px;
+}
+
+.tiptap > * + * {
+    margin-top: 0.75em;
+}
+
+.tiptap ul,
+.tiptap ol {
+    padding: 0 1rem;
+}
+
