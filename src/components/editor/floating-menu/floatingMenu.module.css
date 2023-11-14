@@ -1,0 +1,28 @@
+.floatingMenu {
+    display: flex;
+    /*background-color: #0D0D0D10;*/
+    border-radius: 0.5rem;
+    gap: 5px;
+    flex-direction: column;
+    position: absolute;
+}
+
+.floatingMenu button {
+    /*border: none;*/
+    /*background: none;*/
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0 0.2rem;
+    opacity: 0.6;
+    background-color: #0D0D0D10;
+    width: max-content;
+    height: max-content;
+    color: var(--softTextColor);
+    border-radius: 20px;
+    border: 0.1rem solid var(--softTextColor);
+}
+
+.floatingMenu button:hover,
+.floatingMenu button.isActive {
+    opacity: 1;
+}
