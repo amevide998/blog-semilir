@@ -1,0 +1,12 @@
+.listPopUp {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    font-weight: 500;
+}
+
+.listPopUp button {
+    width: max-content;
+    text-align: left;
+}
+
