@@ -27,7 +27,6 @@ export default async function SinglePage ({params} : {params: {slug: string}}){
         )
     }
 
-
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
