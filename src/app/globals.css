@@ -157,17 +157,45 @@ code.inline {
   /*border-left: 1px dashed var(--softTextColor);*/
   padding-left: 10px;
   padding-top: 20px;
-  padding-bottom: 100px;
-  margin-bottom: 200px;
-  margin-top: 20px;
+  padding-bottom: 20px;
+  /*padding-bottom: 100px;*/
+  /*margin-bottom: 200px;*/
+  /*margin-top: 20px;*/
   /*border-top: 0.01rem dashed var(--softTextColor);*/
   box-shadow: 0 0 5px 0 var(--softTextColor);
+  border-radius: 5px;
+  font-family: 'Lora', serif;
 }
 
-.tiptap .tippy-content {
-  z-index: 1 !important;
+.tiptap-body .tiptap {
+  padding-bottom: 200px;
+  margin-top: 10px;
 }
 
-.tiptap .ProseMirror {
-  z-index: 1 !important;
+.tiptap-body .tiptap h1 {
+  text-align: center;
+  font-size: 48px;
+}
+
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+  color: var(--softTextColor);
+  margin-bottom: 8px;
+}
+
+.tiptap li {
+  margin-left: 30px;
+}
+
+
+.tiptap-sub-title .tiptap {
+  margin-top: 10px;
+
+}
+
+.tiptap-title .tiptap {
+  text-align: center;
 }
