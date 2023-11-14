@@ -22,7 +22,7 @@ export default function Navbar() {
             </Link>
             <div className={styles.links}>
                 <Theme/>
-                <Link href={""} className={styles.link}>HOME</Link>
+                <Link href={"/"} className={styles.link}>HOME</Link>
                 <Link href={""} className={styles.link}>CONTACT</Link>
                 <Link href={""} className={styles.link}>ABOUT</Link>
                 <div className={styles.authlink}>
