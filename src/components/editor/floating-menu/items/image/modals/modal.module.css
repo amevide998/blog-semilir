@@ -1,0 +1,72 @@
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-0%, -20%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 300px; /* Sesuaikan dengan lebar yang diinginkan */
+
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.modal img figcaption {
+    border: 1px solid black;
+}
+
+.modal button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.modal button:last-child {
+    background-color: #ccc;
+}
+
+/* Tambahan: Animasi muncul saat modal dibuka */
+.modal-enter {
+    opacity: 0;
+}
+.modal-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+}
+
+
+/* Tambahan: Animasi hilang saat modal ditutup */
+.modal-exit {
+    opacity: 1;
+}
+.modal-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.imgUrlOptions , .imgUploadOptions {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.imgOptions{
+    margin-bottom: 20px;
+}
