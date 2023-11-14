@@ -3,7 +3,6 @@ import styles from "./comments.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import {useSession} from "next-auth/react";
-// import useSWR from "swr";
 import {useEffect, useState} from "react";
 
 

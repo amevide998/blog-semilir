@@ -3,10 +3,28 @@ import styles from './write.module.css';
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import Unauthorize from "@/components/unauthorize/Unauthorize";
+import {useEffect, useState} from "react";
+import EditPost from "@/components/edit-post/EditPost";
+
+// @ts-ignore
 export default function WritePost() {
 
-    const {status} = useSession();
+    const [posts, setPosts] = useState([])
+    const [isLoading, setLoading] = useState(true)
+    const {status, data} = useSession();
     const router = useRouter();
+
+    useEffect(() => {
+        if(data?.user){
+            console.log('cek user data', data?.user)
+            fetch(`/api/posts?email=${data?.user?.email}`)
+                .then((res) => res.json())
+                .then((result) => {
+                    setPosts(result.data)
+                    setLoading(false)
+                })
+        }
+    }, [data, status])
 
     if(status !== "authenticated"){
         return (
@@ -18,7 +36,11 @@ export default function WritePost() {
 
     return (
         <div className={styles.container}>
-            Kamu belum punya post apa apa
+            {
+                !isLoading ? <EditPost posts={posts}/>
+                    :
+                    <div>Loading...</div>
+            }
         </div>
     )
 }
