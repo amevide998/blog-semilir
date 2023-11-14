@@ -3,6 +3,12 @@ const nextConfig = {
     // experimental: {
     //     appDir: true,
     // },
+    rewrites: () => [
+        {
+            source: '/unauthorized',
+            destination: '/unauthorized.html',
+        },
+    ],
     compiler: {
         styledComponents: true,
     },
