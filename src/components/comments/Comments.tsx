@@ -25,7 +25,7 @@ export default function Comments ({postSlug}) {
                 setData(result.data)
                 setLoading(false)
             })
-    }, [])
+    }, [postSlug])
 
 
     if (isLoading) return <p>Loading...</p>
@@ -39,9 +39,6 @@ export default function Comments ({postSlug}) {
         }
 
     }
-
-    console.log('cek status', status)
-
 
     return (
         <div className={styles.container}>
