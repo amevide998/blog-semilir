@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
         <head>
             <link rel="icon" href="/favicon.ico" />
+            <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
         </head>
       <body className={inter.className}>
       <NextAuthProvider>
