@@ -19,13 +19,6 @@ export default function TipTap({params} : {params: {slug: string}}) {
     const {status} = useSession();
     const router = useRouter()
 
-    if(status !== "authenticated") {
-        return (
-        <>
-            <Unauthorize />
-        </>
-        )
-    }
 
     console.log('params ', params)
     console.log('cek status', status)
@@ -41,6 +34,14 @@ export default function TipTap({params} : {params: {slug: string}}) {
         ],
         content:`<h1>Untitle</h1><h2>Subtitle...</h2><p>about...</p>`,
     })
+
+    if(status !== "authenticated") {
+        return (
+            <>
+                <Unauthorize />
+            </>
+        )
+    }
 
 
     return (
