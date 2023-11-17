@@ -1,11 +1,9 @@
 import NextAuth from "next-auth"
-import Auth0Provider from "next-auth/providers/auth0"
-import FacebookProvider from "next-auth/providers/facebook"
-import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import TwitterProvider from "next-auth/providers/twitter"
 import {MongoDBAdapter} from "@auth/mongodb-adapter";
 import clientPromise from "@/adapter/mongodb-adapter";
+import SignToken from "@/utils/signInToken";
+import {redis} from "@/databases/redis";
 // import EmailProvider from "next-auth/providers/email"
 // import AppleProvider from "next-auth/providers/apple"
 
@@ -28,31 +26,31 @@ const handler = NextAuth({
         //     keyId: process.env.APPLE_KEY_ID,
         //   },
         // }),
-        Auth0Provider({
-            clientId: process.env.AUTH0_ID as string,
-            clientSecret: process.env.AUTH0_SECRET as string,
-            // @ts-ignore
-            domain: process.env.AUTH0_DOMAIN as string,
-        }),
-        FacebookProvider({
-            clientId: process.env.FACEBOOK_ID as string,
-            clientSecret: process.env.FACEBOOK_SECRET as string,
-        }),
-        GithubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string,
-            // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-            // @ts-ignore
-            scope: "read:user",
-        }),
+        // Auth0Provider({
+        //     clientId: process.env.AUTH0_ID as string,
+        //     clientSecret: process.env.AUTH0_SECRET as string,
+        //     // @ts-ignore
+        //     domain: process.env.AUTH0_DOMAIN as string,
+        // }),
+        // FacebookProvider({
+        //     clientId: process.env.FACEBOOK_ID as string,
+        //     clientSecret: process.env.FACEBOOK_SECRET as string,
+        // }),
+        // GithubProvider({
+        //     clientId: process.env.GITHUB_ID as string,
+        //     clientSecret: process.env.GITHUB_SECRET as string,
+        //     // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+        //     // @ts-ignore
+        //     scope: "read:user",
+        // }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
-        TwitterProvider({
-            clientId: process.env.TWITTER_ID as string,
-            clientSecret: process.env.TWITTER_SECRET as string,
-        }),
+        // TwitterProvider({
+        //     clientId: process.env.TWITTER_ID as string,
+        //     clientSecret: process.env.TWITTER_SECRET as string,
+        // }),
     ],
     // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
     // https://next-auth.js.org/configuration/databases
@@ -87,7 +85,7 @@ const handler = NextAuth({
     // https://next-auth.js.org/configuration/options#jwt
     jwt: {
         // A secret to use for key generation (you should set this explicitly)
-        // secret: process.env.SECRET,
+        // secret: process.env.SECRET as string,
         // Set to true to use encryption (default: false)
         // encryption: true,
         // You can define your own encode/decode functions for signing and encryption
@@ -113,10 +111,27 @@ const handler = NextAuth({
     // when an action is performed.
     // https://next-auth.js.org/configuration/callbacks
     callbacks: {
-        // async signIn({ user, account, profile, email, credentials }) { return true },
+        async signIn({ user, account, profile, email, credentials }) {
+            const user_email = user?.email as string;
+            const token = await SignToken(user_email);
+            await redis.set(user_email, token);
+            return true
+        },
+
         // async redirect({ url, baseUrl }) { return baseUrl },
         // async session({ session, token, user }) { return session },
-        // async jwt({ token, user, account, profile, isNewUser }) { return token }
+        async jwt({ token, user, account }) {
+            if (account) {
+                token.loggedUser = await SignToken(user?.email as string);
+            }
+            return token;
+        },
+        async session({ session, token, user }) {
+            // Send properties to the client, like an access_token from a provider.
+            // @ts-ignore
+            session['loggedUser'] = await redis.get(session?.user.email as string);
+            return session;
+        }
     },
 
     // Events are useful for logging

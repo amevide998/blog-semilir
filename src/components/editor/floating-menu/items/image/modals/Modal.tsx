@@ -43,9 +43,9 @@ export default function Modal({editor}: {editor: Editor}) {
             const content = `<figure> ${imageTag}${captionTag} </figure>`;
 
 
-            // editor.commands.setImage({src: imageUrl, alt: imageCaption, title: imageCaption});
-            // editor.chain().focus().insertContent(content).run();
-            // closeModal();
+            editor.commands.setImage({src: imageUrl, alt: imageCaption, title: imageCaption});
+            editor.chain().focus().insertContent(content).run();
+            closeModal();
         }
     };
 
@@ -58,6 +58,12 @@ export default function Modal({editor}: {editor: Editor}) {
 
     return (
         <>
+            <button
+                onClick={() => setModalOpen(!modalOpen)}
+                className={editor.isActive('image') ? 'is-active' : ''}
+            >
+                Image
+            </button>
             {modalOpen && (
                 <div className={styles.modal}>
                     <div className={styles.imgOptions}>

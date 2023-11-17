@@ -11,8 +11,8 @@ export default function EditPost({posts}: any) {
             <div className={styles.posts}>
                 {
                     posts && posts.map((item: any) => (
-                        <>
-                        <div key= {item._id}  className={styles.postContainer}>
+                        <div key= {item._id}>
+                        <div  className={styles.postContainer}>
                              {/*eslint-disable-next-line @next/next/no-img-element*/}
                             <img src={item.image} alt={""} />
                             <div className={styles.post}>
@@ -41,7 +41,7 @@ export default function EditPost({posts}: any) {
                             </div>
                         </div>
                     <hr />
-                        </>
+                        </div>
                     ))
                 }
             </div>

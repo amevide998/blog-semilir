@@ -199,3 +199,10 @@ code.inline {
 .tiptap-title .tiptap {
   text-align: center;
 }
+
+.tiptap img {
+  width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

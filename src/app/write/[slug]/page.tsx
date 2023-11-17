@@ -6,7 +6,7 @@ import {
 } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit';
 import Image from "@tiptap/extension-image";
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
@@ -14,57 +14,93 @@ import FloatingMenuEditor from "@/components/editor/floating-menu/FloatingMenuEd
 import {useSession} from "next-auth/react";
 // import {useRouter} from "next/navigation";
 import Unauthorize from "@/components/unauthorize/Unauthorize";
+import Loader from "@/components/loader/Loader";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 export default function TipTap({params} : {params: {slug: string}}) {
 
+    // @ts-ignore
     const {status, data} = useSession();
     // const router = useRouter();
     const [posts, setPosts] = useState({
         author: {email: ""}
     })
     const [isLoading, setLoading] = useState(true)
+    const router = useRouter()
 
+    const [isAuthorized, setIsAuthorized] = useState(false)
 
     const editor = useEditor({
         extensions: [
-            Document,
-            Paragraph,
-            Text,
             Image,
             StarterKit
         ],
         content:`<h1>Untitle</h1><h2>Subtitle...</h2><p>about...</p>`,
     })
 
-    useEffect(() => {
-        if(data?.user){
-            console.log('cek user data',)
-            fetch(`/api/post?slug=${params.slug}&email=${data?.user?.email}`)
-                .then((res) => res.json())
-                .then((result) => {
-                    setPosts(result.data)
-                    setLoading(false)
-                    const title = result.data.title
-                    const subtitle = result.data.subtitle
-                    const body = result.data.body
-                    const content = `<h1>${title}</h1><h2>${subtitle}</h2>${body}`
-                    editor?.commands.setContent(content)
-                })
+    const getData = async () =>{
+        if (data) {
+            const res = await fetch(`/api/post?slug=${params.slug}`, {
+                headers: {
+                    //@ts-ignore
+                    token: data['loggedUser']
+                }
+            })
+            if(!res.ok){
+                throw res.status
+            }
+            return await res.json()
         }
-    }, [data, status, params, editor])
-
-
-    if(status !== "authenticated") {
-        return (
-            <>
-                <Unauthorize />
-            </>
-        )
     }
 
 
+    useEffect(  () => {
+        //@ts-ignore
+        if(params && data?.['loggedUser']){
+            getData().then(result => {
+                setPosts(result.data)
+                setLoading(false)
+                setIsAuthorized(true)
+                const title = result.data.title
+                const subtitle = result.data.subtitle
+                const body = result.data.body
+                const content = `<h1>${title}</h1><h2>${subtitle}</h2>${body}`
+                editor?.commands.setContent(content)
+            }).catch(() => {
+                setIsAuthorized(false)
+            })
+        }
+    }, [params, data])
+
+
+
+    if(status !== "authenticated") {
+        if(status === "loading") {
+            return (
+                <div className={styles.loaderContainer}>
+                    <Loader />
+                </div>
+            )
+        }else {
+            return (
+                <div className={styles.unauthorizedContainer}>
+                    <Unauthorize />
+                </div>
+            )
+        }
+    }else {
+        if(!isAuthorized){
+            return (
+                <div className={styles.unauthorizedContainer}>
+                    <Unauthorize />
+                </div>
+            )
+        }
+    }
+
     return (
         <>
-        { isLoading ? <div>Loading...</div> : (
+        { status === 'authenticated' && !isLoading && isAuthorized && (
             <div className={styles.editor}>
                 {
                     editor && <FloatingMenuEditor editor = {editor}/>
@@ -82,18 +118,12 @@ export default function TipTap({params} : {params: {slug: string}}) {
                 {
                     editor && (
                         <div className="tiptap-body">
-                            {
-                                data?.user?.email === posts?.author.email ? (
-                                    <EditorContent editor={editor} />
-                                ): (
-                                    <Unauthorize />
-                                )
-                            }
+                            <EditorContent editor={editor} />
                         </div>
                     )
                 }
-            </div>
-        )}
+            </div>)
+        }
         </>
     )
 }
