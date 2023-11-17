@@ -113,8 +113,11 @@ const handler = NextAuth({
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             const user_email = user?.email as string;
+            console.log('cek user email', user_email);
             const token = await SignToken(user_email);
+            console.log('cek token', token);
             await redis.set(user_email, token);
+            console.log('cek redis', await redis.get(user_email));
             return true
         },
 
