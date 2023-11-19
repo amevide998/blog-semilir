@@ -1,11 +1,33 @@
 "use client"
 import styles from "./editPost.module.css";
 import Image from "next/image";
-import React from "react";
+import React, {useEffect} from "react";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
 
-export default function EditPost({posts}: any) {
-    console.log('cek post', posts)
+export default function EditPost({posts, refetch}: any) {
+
+    const {status, data} = useSession();
+
+    async function deleteHandler(id: any){
+        if(data?.user){
+            const confirm = window.confirm("Are you sure you want to delete this post?");
+            if(confirm){
+                const res = await fetch(`/api/post?id=${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            //@ts-ignore
+                            token: data['loggedUser']
+                        }
+                 })
+                if(res.ok) {
+                    refetch()
+                }
+            }
+        }
+    }
+
+
     return (
         <div className={styles.container}>
             <div className={styles.posts}>
@@ -35,9 +57,16 @@ export default function EditPost({posts}: any) {
                                 </div>
                             </div>
                             <div className={styles.edit}>
-                                <Link href={`/write/${item.slug}`} className={styles.button}>
+                                <Link href={`/write/${item.slug}`}
+                                      className={styles.button}>
                                     Edit
                                 </Link>
+                            </div>
+                            <div className={styles.delete}>
+                                <button onClick={()=> deleteHandler(item._id)}
+                                      className={styles.button}>
+                                    Delete
+                                </button>
                             </div>
                         </div>
                     <hr />

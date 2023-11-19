@@ -3,20 +3,76 @@ import {connectToDatabase} from "@/databases/mongodb";
 import Post from "@/models/schemas/postSchema";
 import User from "@/models/schemas/userSchema";
 import jwt from "jsonwebtoken";
+import generateString from "@/utils/generateString";
+import {ObjectId} from "bson";
 
 
 const handler = async (req: NextRequest)=> {
-
-    const slug = req.nextUrl.searchParams.get('slug')
-    const token = req.headers.get('token')
-
-    if(token === null){
-        return NextResponse.redirect(process.env.HOST + '/')
+    if(req.method == 'GET'){
+        return await GET(req)
     }
-    const user = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as {
-        email: string,
-        iat: number,
-        exp: number
+    else if(req.method == 'POST'){
+        return await POST(req)
+    }
+    else if(req.method == 'DELETE'){
+        return await DELETE(req)
+    }
+    else{
+        return NextResponse.json({message: 'method not allowed', data: null})
+    }
+}
+
+async function DELETE(req: NextRequest) {
+    const sessionData = extractToken(req)
+    if (!sessionData) {
+        return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})
+    }
+
+    const id = req.nextUrl.searchParams.get('id')
+    if(id){
+        await Post.findByIdAndDelete({_id: new ObjectId(id)})
+        return NextResponse.json({message: 'ok', data: null})
+    }else{
+        return NextResponse.json({message: 'not found', data: null}, {status: 404})
+    }
+}
+
+async function POST(req: NextRequest){
+    const sessionData = extractToken(req)
+    if(!sessionData){
+        return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})
+    }
+
+    const user = await User.findOne({email: sessionData.email})
+    if(!user){
+        return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})
+    }
+    const reqBody = await req.json()
+
+    const newPost = {
+        slug: generateString(10) + new Date().getTime().toString(),
+        author: user._id,
+        category: new ObjectId(reqBody.category)
+    }
+
+    const post = await Post.create(newPost)
+
+    if(post){
+        await User.findByIdAndUpdate(user._id, {
+            $push: {
+                posts: post._id
+            }
+        })
+    }
+
+    return NextResponse.json({message: 'ok', data: post})
+}
+
+async function GET(req: NextRequest){
+    const slug = req.nextUrl.searchParams.get('slug')
+    const sessionData = extractToken(req)
+    if(!sessionData){
+        return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})
     }
 
     if(!slug){
@@ -31,7 +87,7 @@ const handler = async (req: NextRequest)=> {
 
     const userDb = await User.findById(post.author)
 
-    if(userDb.email !== user.email){
+    if(userDb.email !== sessionData.email){
         return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})
     }
 
@@ -42,7 +98,20 @@ const handler = async (req: NextRequest)=> {
     return NextResponse.json({message: 'ok', data: post})
 }
 
+function extractToken (req: NextRequest){
+    const token = req.headers.get('token')
+    if(token === null){
+        return null
+    }
+    return jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as {
+        email: string,
+        iat: number,
+        exp: number
+    }
+}
+
 export {
     handler as GET,
-    handler as POST
+    handler as POST,
+    handler as DELETE
 }

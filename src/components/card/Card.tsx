@@ -7,6 +7,9 @@ export const Card = async ({item}: {item: any}) => {
     const category = await getCategory(item.category)
 
     return (
+        <>
+        {
+        category && (
         <div className={styles.container} key={item._id}>
             {
                 item.image && (
@@ -37,5 +40,7 @@ export const Card = async ({item}: {item: any}) => {
                 </Link>
             </div>
         </div>
+        )}
+        </>
     )
 }

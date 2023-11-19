@@ -1,3 +1,15 @@
 .container {
     min-height: 100vh;
 }
+
+.loaderContainer {
+    border: 1px solid #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.emptyPost {
+    min-height: 80vh;
+}

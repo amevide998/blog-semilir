@@ -3,18 +3,25 @@ import {connectToDatabase} from "@/databases/mongodb";
 import Comment from "@/models/schemas/commentSchema";
 import Post from "@/models/schemas/postSchema";
 import User from "@/models/schemas/userSchema";
+import jwt from "jsonwebtoken";
 
 
 
 const handler = async (req: NextRequest)=> {
 
-    const email = req.nextUrl.searchParams.get('email')
-    if(!email){
-        return NextResponse.redirect('/')
+    const token = req.headers.get('token')
+    if(token === null){
+        return NextResponse.redirect(process.env.HOST + '/')
+    }
+
+    const payload = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as {
+        email: string,
+        iat: number,
+        exp: number
     }
 
     await connectToDatabase()
-    const user = await User.findOne({email: email})
+    const user = await User.findOne({email: payload.email})
 
     // get posts
     const postsId = user?.posts
