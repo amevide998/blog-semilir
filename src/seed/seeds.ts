@@ -39,6 +39,7 @@ const seeds = async () => {
                 category: categories[0]._id,
                 author: user._id,
                 comments: [],
+                published: true
             }
         const p2 =
             {
@@ -50,6 +51,7 @@ const seeds = async () => {
                 category: categories[1]._id,
                 author: user._id,
                 comments: [],
+                published: true
             }
         const p3 =
             {
@@ -61,6 +63,7 @@ const seeds = async () => {
                 category: categories[2]._id,
                 author: user._id,
                 comments: [],
+                published: true
             }
         const p4 =
             {
@@ -72,6 +75,7 @@ const seeds = async () => {
                 category: categories[3]._id,
                 author: user._id,
                 comments: [],
+                published: true
             }
         const p5 =
             {
@@ -83,6 +87,7 @@ const seeds = async () => {
                 category: categories[0]._id,
                 author: user._id,
                 comments: [],
+                published: true
             }
         const p6 =
             {
@@ -93,7 +98,8 @@ const seeds = async () => {
                 image: "https://picsum.photos/600",
                 category: categories[0]._id,
                 author: user._id,
-                comments: []
+                comments: [],
+                published: true
             }
 
             const post1 = await Post.create(p1);

@@ -13,4 +13,5 @@ export interface IPost extends Document {
     comments: Schema.Types.ObjectId[] | string[];
     createdAt?: Date;
     updatedAt?: Date;
+    published: boolean;
 }

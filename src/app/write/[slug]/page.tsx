@@ -19,6 +19,8 @@ import {router} from "next/client";
 import {useRouter} from "next/navigation";
 import BubbleMenuEditor from "@/components/editor/bubble-menu/BubbleMenuEditor";
 import {Editor} from "@tiptap/core";
+import UploadImageModal from "@/components/upload-image-modal/UploadImageModal";
+import uploadImageToFirebase from "@/databases/firebaseStorage";
 export default function TipTap({params} : {params: {slug: string}}) {
 
     // @ts-ignore
@@ -31,8 +33,12 @@ export default function TipTap({params} : {params: {slug: string}}) {
     const [isAuthorized, setIsAuthorized] = useState(false)
 
     const [firstLoad, setFirstLoad] = useState(true)
+    const [uploadImageCover, setUploadImageCover] = useState("")
 
-    const [reloadTime, setReloadTime] = useState(1000)
+    const [isImageCoverModal, setIsImageCoverModal] = useState(false)
+    const [showcaseImageCover, setShowcaseImageCover] = useState("")
+
+
 
     const editor = useEditor({
         extensions: [
@@ -64,11 +70,11 @@ export default function TipTap({params} : {params: {slug: string}}) {
                 getData().then(result => {
                     setPosts(result.data)
                     setIsAuthorized(true)
-                    const title = result.data.title
-                    const subTitle = result.data.subTitle
+                    // const title = result.data.title
+                    // const subTitle = result.data.subTitle
                     const body = result.data.body
-                    const content = `<h1>${title}</h1><h2>${subTitle}</h2>${body}`
-                    localStorage.setItem('draft-'+result.data.slug, content)
+                    // const content = `<!--<h1>${title}</h1><h2>${subTitle}</h2>${body}-->`
+                    localStorage.setItem('draft-'+result.data.slug, body)
                     setLoading(false)
                 }).catch(() => {
                     setIsAuthorized(false)
@@ -96,6 +102,55 @@ export default function TipTap({params} : {params: {slug: string}}) {
     }, [editor, firstLoad, params.slug]);
 
 
+    const coverImageUploadHandler = async () => {
+        await uploadImage()
+        // const file = await uploadImageToFirebase('cover-post', uploadImageCover)
+        // console.log('cek file', file)
+        //     const reader = new FileReader();
+        //     reader.onload = (e) => {
+        //         setUploadImageCover(e.target?.result as string);
+        //     };
+        //     reader.readAsDataURL(e.target.files[0]);
+        // }
+    }
+
+    async function uploadImage(){
+        if(uploadImageCover){
+            // @ts-ignore
+            if((data) && data['loggedUser'] && params.slug){
+                const formData = new FormData()
+                formData.append('img_cover_url', uploadImageCover)
+                formData.append('slug', params.slug)
+
+                try {
+                    const res = await fetch('/api/image', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            // @ts-ignore
+                            'token': data['loggedUser']
+                        }
+                    })
+
+                    if(res.ok){
+                        setIsImageCoverModal(false)
+                        setShowcaseImageCover(uploadImageCover)
+                        return true
+                    }
+                }catch (err){
+                    console.log('error upload image', err)
+                }
+
+
+
+            }
+        }else{
+            alert("image is empty")
+        }
+
+    }
+
+
     if(status !== "authenticated") {
         if(status === "loading") {
             return (
@@ -114,24 +169,48 @@ export default function TipTap({params} : {params: {slug: string}}) {
         }
     }
 
-    return (
+    // @ts-ignore
+    return(
         <>
         { (status === 'authenticated' && !isLoading && isAuthorized ) ? (
             <div className={styles.editor}>
-                {
-                    editor && <FloatingMenuEditor editor = {editor}/>
-                }
-                    {editor && <BubbleMenuEditor editor={editor} />}
+                {editor && <FloatingMenuEditor editor = {editor}/>}
+                {editor && <BubbleMenuEditor editor={editor} />}
+                <div className={styles.ControlMenu}>
+                    <div className={styles.TextTitle}>
+                        <div className={styles.title}>
+                            <textarea id="title"
+                                      placeholder="Title"
+                                      // rows={1}
+                                      onKeyPress={e => {
+                                          if(e.key === 'Enter')
+                                              e.preventDefault()}}
+                                      maxLength={100}
+                            />
+                        </div>
+                        <div className={styles.subTitle}>
+                            <textarea id="subtitle"
+                                      placeholder="subtitle"
+                                // rows={1}
+                                      onKeyPress={e => {
+                                          if(e.key === 'Enter')
+                                              e.preventDefault()}}
+                                      maxLength={100}
+                            />
+                        </div>
+                    </div>
 
-                <button onClick={()=> {
-                    if (editor) {
-                        const content = editor.getHTML(); // Mengambil HTML konten dari editor
-                        console.log('Konten Editor:', content);
-                    }
-                }}>
-                    Show Content
-                </button>
-
+                    <div className={styles.imageCover}>
+                        <UploadImageModal
+                            showcase={showcaseImageCover}
+                            modal={isImageCoverModal}
+                            setModal={setIsImageCoverModal}
+                            uploadHandler={coverImageUploadHandler}
+                            uploadImage={uploadImageCover}
+                            setUploadImage={setUploadImageCover}
+                        />
+                    </div>
+                </div>
                 {
                     editor && (
                         <div className="tiptap-body">
@@ -139,8 +218,9 @@ export default function TipTap({params} : {params: {slug: string}}) {
                         </div>
                     )
                 }
-            </div>) :
-            (
+            </div>)
+
+            : (
                 <div className={styles.loaderContainer}>
                     <Loader/>
                 </div>

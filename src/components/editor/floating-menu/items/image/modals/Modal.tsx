@@ -34,6 +34,7 @@ export default function Modal({editor}: {editor: Editor}) {
                     return alert("Please select image of type gif, jpeg, or png")
                 }
                 console.log('upload', selectedImage)
+                // Todo, upload image and get back the url
                 // editor.chain().focus().setImage({src: selectedImage}).run();
                 closeModal();
             }
