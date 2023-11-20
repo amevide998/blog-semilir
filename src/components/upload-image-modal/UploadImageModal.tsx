@@ -4,7 +4,7 @@ import React, {SetStateAction} from "react";
 export default function UploadImageModal(
     {showcase, modal, setModal, uploadHandler, uploadImage, setUploadImage} :
         {
-            showcase: string
+            showcase: string | null
             modal: boolean,
             setModal: React.Dispatch<SetStateAction<boolean>>,
             uploadHandler: () => void,
@@ -16,12 +16,12 @@ export default function UploadImageModal(
     return (
         <div className={styles.uploadImage}>
             <div className={styles.imageCoverButton}
-                    onClick={()=> setModal(!modal)}
+
             >
                 {
-                    showcase !== "" ? <img src={showcase} alt={"image-cover"} />
-                        : "Upload Cover Image"
+                    showcase && <img src={showcase} alt={"image-cover"} />
                 }
+                <button onClick={()=> setModal(!modal)}>Set Image Cover</button>
 
             </div>
             { modal &&

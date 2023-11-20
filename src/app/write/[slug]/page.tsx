@@ -7,28 +7,24 @@ import {
 import StarterKit from '@tiptap/starter-kit';
 import Image from "@tiptap/extension-image";
 import React, {useCallback, useEffect, useState} from 'react';
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
+
 import FloatingMenuEditor from "@/components/editor/floating-menu/FloatingMenuEditor";
 import {useSession} from "next-auth/react";
-// import {useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import Unauthorize from "@/components/unauthorize/Unauthorize";
 import Loader from "@/components/loader/Loader";
 import {router} from "next/client";
-import {useRouter} from "next/navigation";
 import BubbleMenuEditor from "@/components/editor/bubble-menu/BubbleMenuEditor";
 import {Editor} from "@tiptap/core";
 import UploadImageModal from "@/components/upload-image-modal/UploadImageModal";
 import uploadImageToFirebase from "@/databases/firebaseStorage";
+
 export default function TipTap({params} : {params: {slug: string}}) {
 
     // @ts-ignore
     const {status, data} = useSession();
     // const router = useRouter();
-    const [posts, setPosts] = useState({
-        author: {email: ""}
-    })
+    const [posts, setPosts] = useState<any>()
     const [isLoading, setLoading] = useState(true)
     const [isAuthorized, setIsAuthorized] = useState(false)
 
@@ -36,7 +32,10 @@ export default function TipTap({params} : {params: {slug: string}}) {
     const [uploadImageCover, setUploadImageCover] = useState("")
 
     const [isImageCoverModal, setIsImageCoverModal] = useState(false)
-    const [showcaseImageCover, setShowcaseImageCover] = useState("")
+    const [showcaseImageCover, setShowcaseImageCover] = useState<string | null>("")
+    const [title, setTitle] = useState<string | null>()
+    const [subTitle, setSubTitle] = useState<string | null>()
+    const router = useRouter()
 
 
 
@@ -66,15 +65,22 @@ export default function TipTap({params} : {params: {slug: string}}) {
     useEffect(  () => {
         //@ts-ignore
         if(params && status === 'authenticated' && data?.['loggedUser'] && isLoading){
-            if(!localStorage.getItem('draft-'+params.slug)){
+            const title = localStorage.getItem('draft-title'+params.slug)
+            const subTitle = localStorage.getItem('draft-subtitle'+params.slug)
+            const body = localStorage.getItem('draft-'+params.slug)
+            if(!title || !subTitle || !body){
                 getData().then(result => {
                     setPosts(result.data)
                     setIsAuthorized(true)
                     // const title = result.data.title
                     // const subTitle = result.data.subTitle
                     const body = result.data.body
+                    localStorage.setItem('posts', JSON.stringify(result.data))
                     // const content = `<!--<h1>${title}</h1><h2>${subTitle}</h2>${body}-->`
                     localStorage.setItem('draft-'+result.data.slug, body)
+                    localStorage.setItem('draft-title'+result.data.slug, result.data.title)
+                    localStorage.setItem('draft-subtitle'+result.data.slug, result.data.subtitle || '')
+                    localStorage.setItem('draft-img-cover'+result.data.slug, result.data.image)
                     setLoading(false)
                 }).catch(() => {
                     setIsAuthorized(false)
@@ -91,33 +97,39 @@ export default function TipTap({params} : {params: {slug: string}}) {
         const interval = setInterval(() => {
             if(firstLoad){
                 editor?.commands.setContent(localStorage.getItem('draft-'+params.slug))
+                setTitle(localStorage.getItem('draft-title'+params.slug))
+                setSubTitle(localStorage.getItem('draft-subtitle'+params.slug))
+                setShowcaseImageCover(localStorage.getItem('draft-img-cover'+params.slug))
                 setFirstLoad(false)
+                setPosts(JSON.parse(localStorage.getItem('posts') as string))
             }
             if (editor) {
                 const content = editor.getHTML(); // Mengambil HTML konten dari editor
                 localStorage.setItem('draft-'+params.slug, content);
+                if (title != null) {
+                    localStorage.setItem('draft-title' + params.slug, title)
+                }
+                if (subTitle != null) {
+                    localStorage.setItem('draft-subtitle' + params.slug, subTitle)
+                }
+                if(showcaseImageCover != null){
+                    localStorage.setItem('draft-img-cover' + params.slug, showcaseImageCover)
+                }
             }
         }, 5000);
         return () => clearInterval(interval);
-    }, [editor, firstLoad, params.slug]);
+    }, [editor, firstLoad, params.slug, title, subTitle]);
+
 
 
     const coverImageUploadHandler = async () => {
         await uploadImage()
-        // const file = await uploadImageToFirebase('cover-post', uploadImageCover)
-        // console.log('cek file', file)
-        //     const reader = new FileReader();
-        //     reader.onload = (e) => {
-        //         setUploadImageCover(e.target?.result as string);
-        //     };
-        //     reader.readAsDataURL(e.target.files[0]);
-        // }
     }
 
-    async function uploadImage(){
-        if(uploadImageCover){
+    async function uploadImage() {
+        if (uploadImageCover) {
             // @ts-ignore
-            if((data) && data['loggedUser'] && params.slug){
+            if ((data) && data['loggedUser'] && params.slug) {
                 const formData = new FormData()
                 formData.append('img_cover_url', uploadImageCover)
                 formData.append('slug', params.slug)
@@ -132,22 +144,51 @@ export default function TipTap({params} : {params: {slug: string}}) {
                         }
                     })
 
-                    if(res.ok){
+                    if (res.ok) {
                         setIsImageCoverModal(false)
                         setShowcaseImageCover(uploadImageCover)
                         return true
                     }
-                }catch (err){
+                } catch (err) {
                     console.log('error upload image', err)
                 }
 
 
-
             }
-        }else{
+        } else {
             alert("image is empty")
         }
 
+    }
+
+    const publishHandler = async () => {
+        const confirm = window.confirm("Are you sure you want to publish this post?");
+        if (editor && posts && confirm) {
+            // const content = editor.getHTML(); // Mengambil HTML konten dari editor
+            const title = localStorage.getItem('draft-title' + params.slug)
+            const subTitle = localStorage.getItem('draft-subtitle' + params.slug)
+            const body = localStorage.getItem('draft-' + params.slug)
+            const image = localStorage.getItem('draft-img-cover' + params.slug)
+            const res = await fetch('/api/post', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: posts._id,
+                    title: title,
+                    subTitle: subTitle,
+                    body: body,
+                    image: image,
+                    slug: params.slug
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    // @ts-ignore
+                    'token': data['loggedUser']
+                }
+            })
+            if (res.ok) {
+                router.push('/write')
+            }
+        }
     }
 
 
@@ -186,6 +227,10 @@ export default function TipTap({params} : {params: {slug: string}}) {
                                           if(e.key === 'Enter')
                                               e.preventDefault()}}
                                       maxLength={100}
+                                      value={title? title : ''}
+                                      onChange={(e) => {
+                                          setTitle(e.target.value)
+                                      }}
                             />
                         </div>
                         <div className={styles.subTitle}>
@@ -196,6 +241,10 @@ export default function TipTap({params} : {params: {slug: string}}) {
                                           if(e.key === 'Enter')
                                               e.preventDefault()}}
                                       maxLength={100}
+                                      value={subTitle? subTitle : ''}
+                                      onChange={(e) => {
+                                          setSubTitle(e.target.value)
+                                      }}
                             />
                         </div>
                     </div>
@@ -226,6 +275,11 @@ export default function TipTap({params} : {params: {slug: string}}) {
                 </div>
             )
         }
+        <div className={styles.publish}>
+            <button onClick={()=> publishHandler()}>
+                publish
+            </button>
+        </div>
         </>
     )
 }

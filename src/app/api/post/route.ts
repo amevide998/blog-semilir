@@ -17,8 +17,35 @@ const handler = async (req: NextRequest)=> {
     else if(req.method == 'DELETE'){
         return await DELETE(req)
     }
+    else if(req.method == 'PUT'){
+        return await PUT(req)
+    }
     else{
         return NextResponse.json({message: 'method not allowed', data: null})
+    }
+}
+
+async function PUT(req: NextRequest){
+    const sessionData = extractToken(req)
+    if(!sessionData){
+        return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})
+    }
+
+    const body = await req.json()
+    const postId = new ObjectId(body.id)
+    if(postId){
+        const post = await Post.findById(postId)
+        if(post){
+            post.title = body.title
+            post.subtitle = body.subtitle
+            post.body = body.body
+            post.image = body.image
+            post.published = true
+            await post.save()
+            return NextResponse.json({message: 'ok', data: null})
+        }else{
+            return NextResponse.json({message: 'not found', data: null}, {status: 404})
+        }
     }
 }
 
@@ -113,5 +140,6 @@ function extractToken (req: NextRequest){
 export {
     handler as GET,
     handler as POST,
-    handler as DELETE
+    handler as DELETE,
+    handler as PUT
 }
