@@ -6,6 +6,8 @@
   --softTextColor:#626262;
   --footerbg:#e9ebf0;
   --categoriesbg:linear-gradient(to right, #f2f2f2, #d9d9ff);
+
+  --color-primary: #FF8F8F;
 }
 
 .dark{

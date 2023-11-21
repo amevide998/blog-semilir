@@ -14,7 +14,7 @@ export default async function Footer() {
         <div className={styles.container}>
             <div className={styles.info}>
                 <div className={styles.logo}>
-                    <Image src={"/logo.png"} alt={""} width={50} height={50}/>
+                    <Image src={"/wind-turbines-svgrepo-com.svg"} alt={""} width={50} height={50}/>
                 </div>
                 <h1 className={styles.logoText}>
                     <b>Semilir Blog</b>

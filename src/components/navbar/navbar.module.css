@@ -20,8 +20,9 @@
     width: 40px;
 }
 
-.logo p {
+.logo h1 {
     font-size: 36px;
+    color: var(--color-primary);
 }
 
 .links {
@@ -37,15 +38,12 @@
         font-size: 4rem;
         display: flex;
         flex-direction: column;
-        gap: 0px;
+
     }
-    .logo p {
-        font-size: 0.8rem;
+    .logo h1 {
+        font-size: 28px;
     }
 
-    .logo img {
-        width: 36px;
-    }
 
     .links {
         font-size: 0.75rem;
@@ -70,12 +68,6 @@
         gap: 6px;
     }
 
-    .logo p {
-        display: none;
-    }
-
-
-
 }
 
 @media screen and (max-width: 768px) {
@@ -85,15 +77,6 @@
         display: flex;
         align-items: flex-start;
         padding: 10px;
-    }
-
-    .logo p {
-        display: flex;
-        font-size: 1.5rem;
-    }
-
-    .logo img {
-        display: none;
     }
 
     .socialLogos {
@@ -112,12 +95,5 @@
         justify-content: space-between;
     }
 
-    .logo img {
-        display: block;
-    }
-
-    .logo p {
-        display: none;
-    }
 }
 
