@@ -1,5 +1,14 @@
 .link {
     cursor: pointer;
+
+}
+
+.link:hover {
+    color: var(--softTextColor);
+}
+
+.write:hover {
+    color: var(--softTextColor);
 }
 
 .alreadyLogin {

@@ -25,11 +25,19 @@
     color: var(--color-primary);
 }
 
+.logo h1:hover {
+    color: var(--softTextColor);
+}
+
 .links {
     display: flex;
     gap: 10px;
     flex: 1;
     align-items: center;
+}
+
+.link:hover {
+    color: var(--softTextColor);
 }
 
 @media screen and (max-width: 1280px) {

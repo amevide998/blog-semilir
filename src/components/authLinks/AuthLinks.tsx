@@ -18,7 +18,7 @@ export default function AuthLinks(){
                     ):
                     (
                         <div className={styles.alreadyLogin}>
-                            <Link href={"/write"}>WRITE</Link>
+                            <Link href={"/write"} className={styles.write}>WRITE</Link>
                             <span className={styles.link} onClick={async ()=> await signOut()}>
                                 LOGOUT
                             </span>
@@ -34,8 +34,8 @@ export default function AuthLinks(){
                 open && (
                     <div className={styles.responsiveMenu}>
                         <Link href={"/"}>HOME</Link>
-                        <Link href={"/"}>CONTACT</Link>
-                        <Link href={"/"}>ABOUT</Link>
+                        <Link href={"/contact"}>CONTACT</Link>
+                        <Link href={"/about"}>ABOUT</Link>
                         {
                             status !== "authenticated" ?
                                 (
