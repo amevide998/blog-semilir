@@ -15,7 +15,7 @@ export default async function Cards({page}: {page: number}) {
     const posts = items.posts
 
     const hasPrev = page > 1
-    const hasNext = items.count > page * 4
+    const hasNext = items.count > page * 6
 
     return (
         <div className={styles.container}>

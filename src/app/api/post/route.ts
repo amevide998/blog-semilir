@@ -32,7 +32,7 @@ async function PUT(req: NextRequest){
     }
 
     const body = await req.json()
-    const postId = new ObjectId(body.id)
+    const postId = body.id
     if(postId){
         const post = await Post.findById(postId)
         if(post){
@@ -57,7 +57,7 @@ async function DELETE(req: NextRequest) {
 
     const id = req.nextUrl.searchParams.get('id')
     if(id){
-        await Post.findByIdAndDelete({_id: new ObjectId(id)})
+        await Post.findByIdAndDelete({_id: id})
         return NextResponse.json({message: 'ok', data: null})
     }else{
         return NextResponse.json({message: 'not found', data: null}, {status: 404})
@@ -79,7 +79,7 @@ async function POST(req: NextRequest){
     const newPost = {
         slug: generateString(10) + new Date().getTime().toString(),
         author: user._id,
-        category: new ObjectId(reqBody.category)
+        category: reqBody.category
     }
 
     const post = await Post.create(newPost)
