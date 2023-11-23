@@ -21,6 +21,7 @@ export const getPosts = async (page: number) => {
 export const getPost = async (slug: string) => {
     try{
         await connectToDatabase();
+        // @ts-ignore
         const posts = await Post.findOne({slug})
             .populate({
                 path: 'author',
@@ -32,6 +33,11 @@ export const getPost = async (slug: string) => {
             })
             .exec()
 
+        if(posts){
+            await Post.findByIdAndUpdate(posts._id,{
+                views: posts.views + 1
+            })
+        }
         if(posts.comments.length !== 0){
             posts.comments = await Comment.find({
                 _id: {$in: posts?.comments}
