@@ -11,7 +11,7 @@ export default function Navbar() {
             <div className={styles.socialLogos}>
                 <SocialMediaLogo />
             </div>
-            <Link href={""} className={styles.logo}>
+            <Link href={"/"} className={styles.logo}>
                 <h1>🅂🄴🄼🄸🄻🄸🅁</h1>
             </Link>
             <div className={styles.links}>

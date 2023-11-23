@@ -131,10 +131,10 @@
     }
 
     .container {
-        border-radius: 10px;
-        background-image: var(--categoriesbg);
-        background-size: 200% 100%;
-        animation: gradientFlow 3s ease-in-out infinite;
+        /*border-radius: 10px;*/
+        /*background-image: var(--categoriesbg);*/
+        /*background-size: 200% 100%;*/
+        /*animation: gradientFlow 3s ease-in-out infinite;*/
     }
 
     @keyframes gradientFlow {
@@ -159,3 +159,4 @@
         gap: 10px;
     }
 }
+

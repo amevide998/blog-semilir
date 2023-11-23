@@ -5,6 +5,7 @@ import Cards from "@/components/cards/Cards";
 import Menu from "@/components/menu/Menu";
 
 import seeds from "@/seed/seeds";
+import CategoryCarousel from "@/components/categories/categoryCarousel";
 
 // @ts-ignore
 export default function Home({searchParams}) {
@@ -29,7 +30,7 @@ export default function Home({searchParams}) {
     return (
         <div className={styles.container}>
             <Featured />
-            <Categories />
+            <CategoryCarousel />
             <div className={styles.content}>
                 <Cards page={page}/>
                 <Menu />
