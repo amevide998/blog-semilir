@@ -1,28 +1,42 @@
 .container {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     display: flex;
-    gap: 50px;
-    align-items: center;
-    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+    /*align-items: self-start;*/
+    padding: 8px;
+    justify-content: space-between;
+    border: 1px solid var(--softBg);
+    box-shadow: #626262 0px 0px 4px;
+}
+
+
+.blogContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4px;
 }
 
 .imgContainer {
     flex: 1;
-    position: relative;
-    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    width: 144px;
+    height: 144px;
+}
+
+.imgContainer img {
+    width: 144px;
+    height: 144px;
+    object-fit: cover;
 }
 
 .textContainer {
-    flex: 1;
+    flex: 3;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.postImage {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 10px;
+    gap: 10px;
 }
 
 
@@ -36,7 +50,18 @@
 }
 
 .cardTitle {
-    font-size: 40px;
+    font-size: 24px;
+}
+
+.titleContainer {
+    flex: 1;
+}
+
+.descriptionContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .cardDescription {
@@ -45,19 +70,22 @@
     color: var(--softTextColor);
 }
 
-.readMoreLink {
+.readMoreLink a {
     border-bottom: 1px solid var(--softTextColor);
-    width: max-content;
-    padding: 2px 0px ;
+}
+
+.readMoreLink {
+    display: flex;
+    justify-content: flex-end;
 }
 
 @media screen and (max-width: 1280px) {
     .imgContainer {
-        height: 250px;
+        /*height: 250px;*/
     }
 
     .cardTitle {
-        font-size: 28px;
+        font-size: 20px;
     }
 
     .cardDescription {
@@ -66,25 +94,23 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .imgContainer {
-        height: 200px;
-    }
+    /*.imgContainer {*/
+    /*    height: 200px;*/
+    /*}*/
 
     .container {
-        gap: 20px;
+        gap: 5px;
     }
 
     .cardTitle {
-        font-size: 24px;
+        font-size: 16px;
     }
 
     .cardDescription {
         font-size: 12px;
     }
 
-    .textContainer {
-        gap: 10px;
-    }
+
 }
 
 @media screen and (max-width: 768px) {
