@@ -8,8 +8,8 @@ import jwt from "jsonwebtoken";
 
 
 const handler = async (req: NextRequest)=> {
-
     const token = req.headers.get('token')
+
     if(token === null){
         return NextResponse.redirect(process.env.HOST + '/')
     }
