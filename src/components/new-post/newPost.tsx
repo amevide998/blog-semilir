@@ -19,8 +19,9 @@ export default function NewPost({title, refetch}: any){
         setSelectedOption(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        setIsModalOpen(false)
         try{
             newPostHandler(selectedOption).then(r => {
                 setDisableButton(true)
@@ -65,7 +66,7 @@ export default function NewPost({title, refetch}: any){
         <div className={styles.empty}>
             {isModalOpen ? (
                 <>
-                    <form onSubmit={handleSubmit} className={styles.formSubmit}>
+                    <form className={styles.formSubmit}>
                         <div className={styles.options}>
                             {dataCategory?.map((item: any) => (
                                 <label key={item._id} className={styles.label}>
@@ -81,8 +82,9 @@ export default function NewPost({title, refetch}: any){
                             ))}
                         </div>
                         <div className={styles.optionsButton}>
-                            <button type="submit" disabled={disableButton}
+                            <button disabled={disableButton}
                                     className={styles.submitButton}
+                                    onClick={handleSubmit}
                             >create</button>
                             <button onClick={() => setIsModalOpen(false)}
                                     className={styles.closeButton}

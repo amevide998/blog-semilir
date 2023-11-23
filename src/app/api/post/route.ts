@@ -76,10 +76,11 @@ async function POST(req: NextRequest){
     }
     const reqBody = await req.json()
 
+
     const newPost = {
         slug: generateString(10) + new Date().getTime().toString(),
         author: user._id,
-        category: reqBody.category
+        category: reqBody.categoryId
     }
 
     const post = await Post.create(newPost)
@@ -97,6 +98,7 @@ async function POST(req: NextRequest){
 
 async function GET(req: NextRequest){
     const slug = req.nextUrl.searchParams.get('slug')
+
     const sessionData = extractToken(req)
     if(!sessionData){
         return NextResponse.json({message: 'unauthorized', data: null}, {status: 401})

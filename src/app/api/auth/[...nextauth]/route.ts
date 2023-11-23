@@ -111,12 +111,12 @@ const handler = NextAuth({
     // when an action is performed.
     // https://next-auth.js.org/configuration/callbacks
     callbacks: {
-        // async signIn({ user, account, profile, email, credentials }) {
-        //     const user_email = user?.email as string;
-        //     const token = await SignToken(user_email);
-        //     await redis.set(user_email, token);
-        //     return true
-        // },
+        async signIn({ user, account, profile, email, credentials }) {
+            const user_email = user?.email as string;
+            const token = await SignToken(user_email);
+            await redis.set(user_email, token);
+            return true
+        },
 
         // async redirect({ url, baseUrl }) { return baseUrl },
         // async session({ session, token, user }) { return session },

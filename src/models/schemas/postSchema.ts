@@ -5,7 +5,7 @@ const PostSchema = new Schema<IPost>(
     {
             slug: { type: String, required: true, unique: true },
             title: { type: String, required: true, default:'untitled'},
-            subtitle: { type: String },
+            subtitle: { type: String, default: 'subtitle' },
             body: { type: String, required: true, default: '<p>i want to write about...</p>' },
             image: { type: String },
             views: { type: Number, default: 0, required: true },
