@@ -10,7 +10,7 @@ export default function Pagination(
 
     const router = useRouter();
 
-    const totalPage = Math.ceil(count / 4);
+    const totalPage = Math.ceil(count / 5);
 
     const pathName = usePathname();
 
