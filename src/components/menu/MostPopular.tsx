@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import {getPostsByMostViews} from "@/data/PostData";
 import Image from "next/image";
 import Loader from "@/components/loader/Loader";
@@ -14,7 +13,6 @@ export default async function MostPopular({styles}: any){
             </div>
         )
     }
-
     return (
         <div className={styles.mostPopular}>
             <h2 className={styles.subTitle}>{`What's Hot`}</h2>
@@ -35,7 +33,7 @@ export default async function MostPopular({styles}: any){
                                 <h3 className={styles.postTitle}>
                                     {item?.title}
                                 </h3>
-                                <span className={styles.date}>
+                                <span className={styles.date}>createdAt
                                      {item.createdAt.toLocaleString('default', {dateStyle: 'long'})}
                                 </span>
                             </div>
