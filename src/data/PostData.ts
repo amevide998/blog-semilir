@@ -7,7 +7,7 @@ import Comment from "@/models/schemas/commentSchema";
 export const getPosts = async (page: number) => {
     try{
         await connectToDatabase();
-        const posts =  await Post.find({published:true}).limit(4).skip((page -1) * 4).sort({createdAt: -1, views: -1, _id: -1, category: -1} )
+        const posts =  await Post.find({published:true}).limit(5).skip((page -1) * 5).sort({createdAt: -1, views: -1, _id: -1, category: -1} )
         const count = await Post.countDocuments()
         return {
             posts,
