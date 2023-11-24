@@ -11,11 +11,8 @@ export default async function ByEditor({styles, post}: any){
 
     return (
         <Link href={"/"} className={styles.item} >
-            <div className={styles.imgContainer}>
-                <Image src={author.image} alt={""} className={styles.image} fill />
-            </div>
             <div className={styles.textContainer}>
-                        <span className={`${styles.category}`}
+                <span className={`${styles.category}`}
                               style={{backgroundColor: category.color1}}
 
                         >
@@ -25,10 +22,11 @@ export default async function ByEditor({styles, post}: any){
                     {post.title}
                 </h3>
                 <div className={styles.detail}>
-                            <span className={styles.username}>
-                                {author.name}
-                            </span>
-                    {" - "}
+                    <span className={styles.username}>
+                        <Image src={author.image} alt={""} className={styles.image} width={20} height={20} />
+                        {author.name}
+                    </span>
+                    {" "}
                     <span className={styles.date}>
                         {post.createdAt.toLocaleString('default', {dateStyle: 'long'})}
                     </span>
