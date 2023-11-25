@@ -25,7 +25,7 @@ const handler = async (req: NextRequest)=> {
 
     // get posts
     const postsId = user?.posts
-    const posts = await Post.find({_id: {$in: postsId}})
+    const posts = await Post.find({_id: {$in: postsId}}).populate('category')
     return NextResponse.json({message: 'ok', data: posts})
 }
 
