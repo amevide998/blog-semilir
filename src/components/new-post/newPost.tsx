@@ -68,6 +68,7 @@ export default function NewPost({title, refetch}: any){
                 <>
                     <form className={styles.formSubmit}>
                         <div className={styles.options}>
+                            <p>Choose Category</p>
                             {dataCategory?.map((item: any) => (
                                 <label key={item._id} className={styles.label}>
                                     <input
