@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema<IUser>(
             name: { type: String, required: true },
             email: { type: String, required: true, unique: true },
             image: { type: String },
-            hash: { type: String, required: true },
+            hash: { type: String },
             emailVerified: { type: Boolean, default: false },
             posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
             comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
