@@ -9,21 +9,27 @@ import {useEffect, useState} from "react";
 // @ts-ignore
 export default function Comments ({postSlug}) {
 
-    const {status} = useSession()
+    const {status, data} = useSession()
 
-    const [data, setData] = useState([])
+    const [post, setPost] = useState([])
     const [isLoading, setLoading] = useState(true)
 
 
     const [description, setDescription] = useState("");
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
-    useEffect(() => {
+
+    const fetchComments = () => {
         fetch(`/api/comments?postSlug=${postSlug}`)
             .then((res) => res.json())
             .then((result) => {
-                setData(result.data)
+                setPost(result.data)
                 setLoading(false)
             })
+    }
+
+    useEffect(() => {
+        fetchComments()
     }, [postSlug])
 
 
@@ -36,7 +42,31 @@ export default function Comments ({postSlug}) {
         if(description.trim() == ""){
             return alert("comment cannot be empty")
         }
+        else{
+            try{
+                setIsButtonDisabled(true)
+                const res = await fetch(`/api/comments?postSlug=${postSlug}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // @ts-ignore
+                        "token": data['loggedUser']
+                    },
+                    body: JSON.stringify({
+                        description
+                    })
+                })
 
+                if(res.ok){
+                    fetchComments()
+                }
+
+                setDescription("")
+                setIsButtonDisabled(false)
+            }catch (error) {
+                console.log(error)
+            }
+        }
     }
 
     return (
@@ -49,23 +79,25 @@ export default function Comments ({postSlug}) {
                             <textarea
                                 placeholder={"write a comment for this article"}
                                 className={styles.input}
+                                value={description}
                                 onChange={e=> setDescription(e.target.value)}
                             />
                             <button className={styles.button}
                                     onClick={handleSubmit}
+                                    disabled={isButtonDisabled}
                             >Send</button>
                         </div>
                     )
                     :
                     (
                         <div className={styles.write}>
-                            <Link href={"/login"} className={styles.login}>Log in to comment</Link>
+                            <Link href={"/api/auth/signin"} className={styles.login}>Log in to comment</Link>
                         </div>
                     )
             }
             <div className={styles.comments}>
                 {
-                    isLoading? "loading..." : data?.map((item: any) => (
+                    isLoading? "loading..." : post?.map((item: any) => (
                         <div className={styles.comment} key={item._id}>
                             <div className={styles.user}>
                                 <Image src={item.user.image} alt={"profile"} width={50} height={50}/>
@@ -84,7 +116,7 @@ export default function Comments ({postSlug}) {
                 }
                 {
                     !isLoading && (
-                        data?.length === 0 && (
+                        post?.length === 0 && (
                             <div className={styles.comment}>
                                 <p className={styles.description}>
                                     No comments yet
